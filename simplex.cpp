@@ -14,8 +14,8 @@ int main() {
 	
 		std::cout << "Resulting solution = ";
 		print_vector(task.get_result_solution());
-		
 		std::cout << std::endl;
+		
 		std::cout << "Result = " << task.get_result_value();
 		std::cout << std::endl;
 

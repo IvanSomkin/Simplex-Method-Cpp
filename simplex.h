@@ -133,7 +133,7 @@ void SimplexTask::print_simplex_matrix() {
 	
 }
 
-// Printing task
+// Print task
 
 void SimplexTask::print_task() {
 	
@@ -317,13 +317,13 @@ bool SimplexTask::find_pivot_row() {
 	return true;
 }
 
-// Checking method stop condition
+// Check method stop condition
 
 bool SimplexTask::check_stop() {
 	
 	bool all_negatives, all_positives;
 	
-	// Checking for invalid conditions
+	// Check for invalid conditions
 	
 	for (int i = 0; i < m; i++) {
 		
@@ -351,7 +351,7 @@ bool SimplexTask::check_stop() {
 	
 	result = one;
 	
-	// Chechking if the solution is optimal and whether the function is unrestricted
+	// Check if the solution is optimal and whether the function is unrestricted
 	
 	for (int i = 0; i < n; i++) {
 		
@@ -385,7 +385,7 @@ bool SimplexTask::check_stop() {
 	
 }
 
-// Reading from file
+// Read from file
 
 void SimplexTask::read_task_from_file(std::string file_path) {
 	
@@ -430,12 +430,12 @@ bool SimplexTask::solve() {
 		
 		f_vector.resize(n + m, 0);
 		
-		// Setting all additional variables as basis variables
+		// Set all additional variables as basis variables
 		
 		for (int i = n; i < n + m; i++)
 			i_vector.push_back(i);
 		
-		// Setting D vector with start coefficients
+		// Set D vector with start coefficients
 		
 		d_vector.clear();
 		
@@ -445,7 +445,7 @@ bool SimplexTask::solve() {
 		for (int i = 0; i < m; i++)
 			d_vector.push_back(0);
 		
-		// Adding 1 additional variable to each row
+		// Add 1 additional variable to each row
 		
 		for (int i = 0; i < m; i++) {
 			
@@ -485,7 +485,7 @@ bool SimplexTask::solve() {
 			
 			print_pivots();
 			
-			// Counting new B vector
+			// Count new B vector
 			
 			b_vector[pivot_row] = round_eps(b_vector[pivot_row] / pivot_element);
 			
@@ -494,7 +494,7 @@ bool SimplexTask::solve() {
 					b_vector[i] = round_eps(b_vector[i] - b_vector[pivot_row] * a_matrix[i][pivot_column]);
 					
 			
-			// Counting new A matrix coefficients
+			// Count new A matrix coefficients
 			
 			for (int i = 0; i < n + m; i++)		
 				a_matrix[pivot_row][i] = round_eps(a_matrix[pivot_row][i] / pivot_element);
@@ -510,11 +510,11 @@ bool SimplexTask::solve() {
 						
 				}
 				
-			// Moving variable to basis
+			// Move variable to basis
 			
 			i_vector[pivot_row] = pivot_column;
 			
-			// Counting new D coefficients
+			// Count new D coefficients
 			
 			double d_sum;	
 			
