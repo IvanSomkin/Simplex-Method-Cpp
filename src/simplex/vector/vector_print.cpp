@@ -1,20 +1,16 @@
-#ifndef VECTOR_PRINT_H
-#define VECTOR_PRINT_H
+#include "vector_print.h"
 
 #include <iostream>
-#include <vector>
 #include <iomanip>
 
-int MATRIX_CELL = 8;
-
-// Functions for printing vector and vector<vector> to std::cout
+int MATRIX_CELL = 10;
 
 void print_vector(std::vector<int> vec) {
 	
 	std::cout << "( ";
     for (int n : vec)
         std::cout << n << " ";
-    std::cout << ")" << std::endl;
+    std::cout << ")";
 
 }
 
@@ -23,7 +19,7 @@ void print_vector(std::vector<double> vec) {
 	std::cout << "( ";
     for (double n : vec)
         std::cout << n << " ";
-    std::cout << ")" << std::endl;
+    std::cout << ")";
     
 }
 
@@ -34,7 +30,7 @@ void print_matrix_row(std::vector<double> vec) {
 
 	std::cout << "\t";
 	for (double n : vec)
-		std::cout << std::setw(MATRIX_CELL) << n << " ";
+		std::cout << std::setw(MATRIX_CELL) << n;
 		
 	std::cout.unsetf(std::ios::fixed);
 	std::cout << std::setprecision(6);
@@ -49,9 +45,6 @@ void print_matrix(std::vector<std::vector<double>> mat) {
 		
     	print_matrix_row(mat[i]);
     	std::cout << std::endl << std::endl;
-    	
 	}
 	
 }
-
-#endif
