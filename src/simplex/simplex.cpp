@@ -45,7 +45,6 @@ bool system_consistent(std::vector<std::vector<double>> a_mat, std::vector<doubl
 	}
 		
 	for (int i = 1; i < rows; i++) {
-		
 		if (a_mat[i].size() != columns) {		
 			throw new std::runtime_error("Can't check system consistency. Rows have different lengths.");
 		}
@@ -56,7 +55,7 @@ bool system_consistent(std::vector<std::vector<double>> a_mat, std::vector<doubl
 	// Initial 'all zeroes' check
 	
 	for (int i = 0; i < rows; i++) {
-		
+
 		all_zeroes = std::all_of(a_mat[i].begin(), a_mat[i].end(), [](int i) { return i == 0; });
 		
 		if (all_zeroes && b_vec[i] != 0) {
@@ -123,12 +122,13 @@ bool system_consistent(std::vector<std::vector<double>> a_mat, std::vector<doubl
 					}
 				}
 			}
-		}	
+		}
 	}
 	
 	return true;
 	
 }
+
 
 // Reading
 
@@ -140,14 +140,14 @@ void SimplexTask::read_task_from_file(std::string file_path) {
 	input.open(file_path);
 	
 	if (!input) {
-    	throw std::runtime_error("Could not open file!");
+		throw std::runtime_error("Could not open file!");
 	}
-    	
+
 	input >> n >> m;
 	
 	f_vector_task = read_vector(input, n);
-    
-    a_matrix_task = read_matrix(input, n, m);
+
+	a_matrix_task = read_matrix(input, n, m);
 
 	b_vector_task = read_vector(input, m);
 	
@@ -173,7 +173,7 @@ void SimplexTask::print_task() {
 	print_vector(f_vector_task);
 	std::cout << std::endl << std::endl;
 
-    std::cout << "A = ";
+	std::cout << "A = ";
 	print_matrix(a_matrix_task);
 	
 	std::cout << "B = ";
@@ -272,8 +272,7 @@ bool SimplexTask::is_bad(int i) {
 bool SimplexTask::find_bad_i_row() {
 
 	for (int i = 0; i < m; i++) {
-	
-		if (is_bad(i_vector[i]) || b_vector[i_vector[i]] < 0) {
+		if (is_bad(i_vector[i]) || b_vector[i] < 0) {
 			pivot_row = i;
 			return true;	
 		}
@@ -283,23 +282,34 @@ bool SimplexTask::find_bad_i_row() {
 	
 }
 
-bool SimplexTask::find_first_good_column() { 
+bool SimplexTask::find_first_good_column() {
 	 
 	pivot_column = -1; 
-	 
-	for (int i = 0; i < n + m; i++) {
-	 
-		if (a_matrix[pivot_row][i] != 0 && !is_bad(i)) { 
+
+	if (b_vector[pivot_row] < 0) {
 		
-			pivot_column = i;
-			return true; 
+		for (int i = 0; i < n + m; i++) {
+			if (a_matrix[pivot_row][i] < 0 && !is_in(i, i_vector)) {
+				   pivot_column = i;
+				return true;
+			}
 		}
+		
+	} else {
+		
+		for (int i = 0; i < n + m; i++) {
+			if (a_matrix[pivot_row][i] != 0 && !is_in(i, i_vector)) {
+				   pivot_column = i;
+				return true;
+			}
+		}
+		
 	}
-	
+		
 	result = invalid;
 	return false; 
 	
-} 
+}
 
 bool SimplexTask::find_pivot_column() {
 	
@@ -394,13 +404,22 @@ bool SimplexTask::solve() {
 		for (int i = 0; i < m; i++) {
 			
 			a_matrix[i].resize(n + m);
-			a_matrix[i][n + i] = (sign[i] == 0 ? 1 : -sign[i]);	
-		}	
+			a_matrix[i][n + i] = -sign[i];
+
+			if (sign[i] == 1) {
+				
+				b_vector[i] *= -1;
+				
+				for (int j = 0; j < n + m; j++) {
+					a_matrix[i][j] *= -1;
+				}
+			}
+			
+		}
 		
 		result = none;
 		
-		if (!system_consistent(a_matrix_task, b_vector_task)) {
-			
+		if (!system_consistent(a_matrix, b_vector)) {
 			result = invalid;
 		}
 		
@@ -420,7 +439,7 @@ bool SimplexTask::solve() {
 					
 					break;
 				}
-		    }
+			}
 			
 			else {
 		
