@@ -1,13 +1,19 @@
 # Educational Simplex Method for C++11
 A bare bones algorithm for finding max and min values of a function based on the system of conditions for the variables (linear optimization task).
 
-**simplex.cpp** - An example of a program that uses the SimplexTask class.
+**src/main.cpp** - Main entry point into the program with a code example.
 
-**simplex.h** - Header file containing SimplexTask and it's realization.
+**src/simplex/simplex.h** - Header file containing declarations for the SimplexTask class.
 
-**vectorprint.h** - Header file containing vector printing functions.
+**src/simplex/simplex.cpp** - Implementation of the SimplexTask class.
 
-**vectorget.h** - Header file containing vector reading functions.
+**src/simplex/vector/vector_print.h** - Header file containing vector printing functions.
+
+**src/simplex/vector/vector_print.cpp** - Implementation of the printing functions.
+
+**src/simplex/vector/vector_get.h** - Header file containing vector reading functions.
+
+**src/simplex/vector/vector_get.cpp** - Implementation of the reading functions.
 
 **examples** - A collection of examples that can be used to check the algorithm.
 

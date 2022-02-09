@@ -88,8 +88,6 @@ class SimplexTask {
 		
 		bool find_pivot_row();
 		
-		bool check_stop();
-	
 };
 
 #endif
