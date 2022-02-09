@@ -7,7 +7,7 @@ int main() {
 	
 	SimplexTask task;
 	
-	task.read_task_from_file("../examples/input_test.txt");
+	task.read_task_from_file("../examples/input1.txt");
 	
 	task.print_task();
 	
